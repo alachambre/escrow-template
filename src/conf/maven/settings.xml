@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <localRepository>${env.M2_REPO}</localRepository>
+  <mirrors>
+    <mirror>
+      <id>bonita-internal-mirror</id>
+      <name>Maven Repository Manager running on repositories.rd.lan</name>
+      <url>http://repositories.rd.lan/maven/remote-repos</url>
+      <mirrorOf>*,!project.local.repository,!studio-internal-repository,!artifactory-third-parties-release,!artifactory-plugin-snapshots</mirrorOf>
+    </mirror>
+  </mirrors>
+  <profiles>
+    <profile>
+      <id>artifactory-third-parties</id>
+      <repositories>
+        <repository>
+          <id>artifactory-third-parties-release</id>
+          <name>Artifactory third-parties Releases</name>
+          <url>http://repositories.rd.lan/maven/third-parties</url>
+          <releases>
+           <enabled>true</enabled>
+          </releases>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <!-- required by UID since it uses a snapshot version of pluging BS-19059-->
+          <id>artifactory-plugin-snapshots</id>
+          <name>Artifactory plugin Snapshots</name>
+          <url>http://repositories.rd.lan/maven/apache.snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+   <activeProfile>artifactory-third-parties</activeProfile>
+  </activeProfiles>
+</settings>
